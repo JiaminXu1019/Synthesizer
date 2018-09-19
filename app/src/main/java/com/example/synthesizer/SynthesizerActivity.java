@@ -6,13 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.NumberPicker;
 
-public class SynthesizerActivity extends AppCompatActivity implements View.OnClickListener{
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class SynthesizerActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final float DEFAULT_VOLUME = 1.0f;
-    public static final float DEFAULT_RATE= 1.0f;
+    public static final float DEFAULT_RATE = 1.0f;
     public static final int DEFAULT_PRIORITY = 1;
-    public static final int WHOLE_NOTE = 1000;
+
 
     private Button buttonA;
     private Button buttonBB;
@@ -28,6 +34,14 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
     private Button buttonGsharp;
     private SoundPool soundPool;
     private Button buttonScale;
+    private Button buttonEscale;
+
+    private NumberPicker times;
+    private NumberPicker notes;
+    private Button buttonchallenge2;
+    private Button twinkle;
+    private Button newSong;
+
     private int noteA;
     private int noteB;
     private int noteBb;
@@ -41,6 +55,37 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
     private int noteG;
     private int noteGsharp;
 
+    private int notehighA;
+    private int notehighB;
+    private int notehighBb;
+    private int notehighC;
+    private int notehighCsharp;
+    private int notehighD;
+    private int notehighDsharp;
+    private int notehighE;
+    private int notehighF;
+    private int notehighFsharp;
+    private int notehighG;
+    private int notehighGsharp;
+
+    private Button buttonhighA;
+    private Button buttonhighBB;
+    private Button buttonhighB;
+    private Button buttonhighC;
+    private Button buttonhighCsharp;
+    private Button buttonhighD;
+    private Button buttonhighDsharp;
+    private Button buttonhighE;
+    private Button buttonhighF;
+    private Button buttonhighFsharp;
+    private Button buttonhighG;
+    private Button buttonhighGsharp;
+
+
+    private Map<Integer, Integer> noteMap;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +94,42 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         wireWidgets();
         setListeners();
         initializeSoundPool();
+        initializeNoteMap();
+        initializeNumberPickers();
+
+    }
+
+
+
+    private void initializeNoteMap() {
+        noteMap = new HashMap<>();
+        noteMap.put(R.id.button_synth_a, noteA);
+        noteMap.put(R.id.button_synth_b, noteB);
+        noteMap.put(R.id.button_synth_bb, noteBb);
+        noteMap.put(R.id.button_synth_c, noteC);
+        noteMap.put(R.id.button_synth_cc, noteCsharp);
+        noteMap.put(R.id.button_synth_d, noteD);
+        noteMap.put(R.id.button_synth_dd, noteDsharp);
+        noteMap.put(R.id.button_synth_e, noteE);
+        noteMap.put(R.id.button_synth_f, noteF);
+        noteMap.put(R.id.button_synth_ff, noteFsharp);
+        noteMap.put(R.id.button_synth_g, noteG);
+        noteMap.put(R.id.button_synth_gg, noteGsharp);
+
+        noteMap.put(R.id.button_synth_higha, notehighA);
+        noteMap.put(R.id.button_synth_highb, notehighB);
+        noteMap.put(R.id.button_synth_highbb, notehighBb);
+        noteMap.put(R.id.button_synth_highc, notehighC);
+        noteMap.put(R.id.button_synth_highcc, notehighCsharp);
+        noteMap.put(R.id.button_synth_highd, notehighD);
+        noteMap.put(R.id.button_synth_highdd, notehighDsharp);
+        noteMap.put(R.id.button_synth_highe, notehighE);
+        noteMap.put(R.id.button_synth_highf, notehighF);
+        noteMap.put(R.id.button_synth_highff, notehighFsharp);
+        noteMap.put(R.id.button_synth_highg, notehighG);
+        noteMap.put(R.id.button_synth_highgg, notehighGsharp);
+
+
     }
 
     private void initializeSoundPool() {
@@ -65,22 +146,59 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         noteFsharp = soundPool.load(this, R.raw.scalefs, 1);
         noteG = soundPool.load(this, R.raw.scaleg, 1);
         noteGsharp = soundPool.load(this, R.raw.scalegs, 1);
+
+        notehighA = soundPool.load(this, R.raw.scalehigha, 1);
+        notehighB = soundPool.load(this, R.raw.scalehighb, 1);
+        notehighBb = soundPool.load(this, R.raw.scalehighbb, 1);
+        notehighC = soundPool.load(this, R.raw.scalehighc, 1);
+        notehighCsharp = soundPool.load(this, R.raw.scalehighcs, 1);
+        notehighD = soundPool.load(this, R.raw.scalehighd, 1);
+        notehighDsharp = soundPool.load(this, R.raw.scalehighds, 1);
+        notehighE = soundPool.load(this, R.raw.scalehighe, 1);
+        notehighF = soundPool.load(this, R.raw.scalehighf, 1);
+        notehighFsharp = soundPool.load(this, R.raw.scalehighfs, 1);
+        notehighG = soundPool.load(this, R.raw.scalehighg, 1);
+        notehighGsharp = soundPool.load(this, R.raw.scalehighgs, 1);
     }
 
-    private void setListeners(){
-        buttonA.setOnClickListener(this);
-        buttonBB.setOnClickListener(this);
-        buttonB.setOnClickListener(this);
-        buttonC.setOnClickListener(this);
-        buttonCsharp.setOnClickListener(this);
-        buttonD.setOnClickListener(this);
-        buttonDsharp.setOnClickListener(this);
-        buttonE.setOnClickListener(this);
-        buttonF.setOnClickListener(this);
-        buttonFsharp.setOnClickListener(this);
-        buttonG.setOnClickListener(this);
-        buttonGsharp.setOnClickListener(this);
+    private void setListeners() {
+
+
+        KeyboardNoteListener noteListener = new KeyboardNoteListener();
+
+        buttonhighA.setOnClickListener(noteListener);
+        buttonhighBB.setOnClickListener(noteListener);
+        buttonhighB.setOnClickListener(noteListener);
+        buttonhighC.setOnClickListener(noteListener);
+        buttonhighCsharp.setOnClickListener(noteListener);
+        buttonhighD.setOnClickListener(noteListener);
+        buttonhighDsharp.setOnClickListener(noteListener);
+        buttonhighE.setOnClickListener(noteListener);
+        buttonhighF.setOnClickListener(noteListener);
+        buttonhighFsharp.setOnClickListener(noteListener);
+        buttonhighG.setOnClickListener(noteListener);
+        buttonhighGsharp.setOnClickListener(noteListener);
+
+
+        buttonA.setOnClickListener(noteListener);
+        buttonBB.setOnClickListener(noteListener);
+        buttonB.setOnClickListener(noteListener);
+        buttonC.setOnClickListener(noteListener);
+        buttonCsharp.setOnClickListener(noteListener);
+        buttonD.setOnClickListener(noteListener);
+        buttonDsharp.setOnClickListener(noteListener);
+        buttonE.setOnClickListener(noteListener);
+        buttonF.setOnClickListener(noteListener);
+        buttonFsharp.setOnClickListener(noteListener);
+        buttonG.setOnClickListener(noteListener);
+        buttonGsharp.setOnClickListener(noteListener);
         buttonScale.setOnClickListener(this);
+        buttonEscale.setOnClickListener(this);
+        buttonchallenge2.setOnClickListener(this);
+        times.setOnClickListener(this);
+        notes.setOnClickListener(this);
+        twinkle.setOnClickListener(this);
+        newSong.setOnClickListener(this);
     }
 
     private void wireWidgets() {
@@ -97,105 +215,247 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         buttonG = findViewById(R.id.button_synth_g);
         buttonGsharp = findViewById(R.id.button_synth_gg);
         buttonScale = findViewById(R.id.button_synth_scale);
+        buttonEscale = findViewById(R.id.button_synth_escale);
+
+        buttonhighA = findViewById(R.id.button_synth_higha);
+        buttonhighBB = findViewById(R.id.button_synth_highbb);
+        buttonhighB = findViewById(R.id.button_synth_highb);
+        buttonhighC = findViewById(R.id.button_synth_highc);
+        buttonhighCsharp = findViewById(R.id.button_synth_highcc);
+        buttonhighD = findViewById(R.id.button_synth_highd);
+        buttonhighDsharp = findViewById(R.id.button_synth_highdd);
+        buttonhighE = findViewById(R.id.button_synth_highe);
+        buttonhighF = findViewById(R.id.button_synth_highf);
+        buttonhighFsharp = findViewById(R.id.button_synth_highff);
+        buttonhighG = findViewById(R.id.button_synth_highg);
+        buttonhighGsharp = findViewById(R.id.button_synth_highgg);
+        buttonchallenge2 = findViewById(R.id.button_synth_challenge2);
+
+       times = findViewById(R.id.numberpicker_synth_times);
+       notes = findViewById(R.id.numberPicker_synth_Notes);
+       twinkle = findViewById(R.id.button_synth_twinkle);
+       newSong = findViewById(R.id.button_synth_song);
 
 
-        }
+
+    }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.button_synth_a:
-                soundPool.play(noteA, 1.0f, 1.0f, 1, 0, 1.0f);
-            break;
-            case R.id.button_synth_bb:
-                soundPool.play(noteBb, 1.0f, 1.0f, 1, 0, 1.0f);
+        switch (view.getId()) {
 
-                break;
-            case R.id.button_synth_b:
-                soundPool.play(noteB, 1.0f, 1.0f, 1, 0, 1.0f);
-                break;
-            case R.id.button_synth_c:
-                soundPool.play(noteC, 1.0f, 1.0f, 1, 0, 1.0f);
-
-                break;
-            case R.id.button_synth_cc:
-                soundPool.play(noteCsharp, 1.0f, 1.0f, 1, 0, 1.0f);
-
-                break;
-            case R.id.button_synth_d:
-                soundPool.play(noteD, 1.0f, 1.0f, 1, 0, 1.0f);
-
-                break;
-            case R.id.button_synth_dd:
-                soundPool.play(noteDsharp, 1.0f, 1.0f, 1, 0, 1.0f);
-
-                break;
-            case R.id.button_synth_e:
-                soundPool.play(noteE, 1.0f, 1.0f, 1, 0, 1.0f);
-                break;
-            case R.id.button_synth_f:
-                soundPool.play(noteF, 1.0f, 1.0f, 1, 0, 1.0f);
-                break;
-            case R.id.button_synth_ff:
-                soundPool.play(noteFsharp, 1.0f, 1.0f, 1, 0, 1.0f);
-                break;
-            case R.id.button_synth_g:
-                soundPool.play(noteG, 1.0f, 1.0f, 1, 0, 1.0f);
-                break;
-            case R.id.button_synth_gg:
-                soundPool.play(noteGsharp, 1.0f, 1.0f, 1, 0, 1.0f);
-                break;
             case R.id.button_synth_scale:
                 playScale();
                 break;
 
+            case R.id.button_synth_escale:
+                playEscale();
+                break;
+
+            case R.id.button_synth_challenge2:
+                playChallenge2();
+                break;
+            case R.id.button_synth_twinkle:
+                playTwinkle();
+                break;
+            case R.id.button_synth_song:
+                playNewSong();
+                break;
+
+
+
         }
-}
+    }
+
+    private void playNewSong() {
+        Song scale = new Song();
+
+        scale.add(new Note(noteE, Note.WHOLE_NOTE / 32));
+        scale.add(new Note(noteFsharp, Note.WHOLE_NOTE / 32));
+        scale.add(new Note(noteG, Note.WHOLE_NOTE / 32));
+        scale.add(new Note(noteB, Note.WHOLE_NOTE / 32));
+        scale.add(new Note(noteE, Note.WHOLE_NOTE / 32));
+
+
+
+
+        playSong(scale);
+    }
+
+
+
+    private void playTwinkle() {
+
+        Song scale = new Song();
+
+        scale.add(new Note(noteA, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteA, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighFsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighFsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE));
+        scale.add(new Note(noteD, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteD, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteCsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteCsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteB, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteB, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteA, Note.WHOLE_NOTE));
+
+        for (int i = 0; i < 2; i++) {
+            scale.add(new Note(notehighE, Note.WHOLE_NOTE / 2));
+            scale.add(new Note(notehighE, Note.WHOLE_NOTE / 2));
+            scale.add(new Note(noteD, Note.WHOLE_NOTE / 2));
+            scale.add(new Note(noteD, Note.WHOLE_NOTE / 2));
+            scale.add(new Note(noteCsharp, Note.WHOLE_NOTE / 2));
+            scale.add(new Note(noteCsharp, Note.WHOLE_NOTE / 2));
+            scale.add(new Note(noteB, Note.WHOLE_NOTE));
+        }
+
+        scale.add(new Note(noteA, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteA, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighFsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighFsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE));
+        scale.add(new Note(noteD, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteD, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteCsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteCsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteB, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteB, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteA, Note.WHOLE_NOTE));
+
+        playSong(scale);
+    }
+
+    private void playChallenge2() {
+        int [] note = new int [] { noteA, noteB, noteBb, noteC, noteCsharp, noteD, noteDsharp, noteE, noteF, noteFsharp, noteG, noteGsharp,
+                notehighA, notehighB, notehighBb, notehighC, notehighCsharp, notehighD, notehighDsharp, notehighE, notehighF, notehighFsharp, notehighG, notehighGsharp } ;
+
+        for(int i = 0; i <  times.getValue(); i ++)
+        {
+          playNote(note[notes.getValue()]);
+          delay(1000);
+
+        }
+
+    }
+
+
+    private void initializeNumberPickers() {
+        String[] note = new String []{"A" , "B", "B♭" , "C", "C# " ,"D", "D#", "E", "F", "F#", "G", "G#",
+                                      "highA" , "highB", "highB♭" , "highC", "highC# " ,"highD", "highD#", "highE", "highF", "highF#", "highG", "highG#" };
+
+
+        notes.setMaxValue(23);
+        notes.setMinValue(0);
+        notes.setDisplayedValues(note);
+        times.setMinValue(0);
+        times.setMaxValue(20);
+
+    }
+
+
+
+
+    private void playEscale() {
+        Song scale = new Song();
+
+        scale.add(new Note(noteE, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteFsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteG, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighA, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighB, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighCsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighD, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 2));
+
+        playSong(scale);
+    }
+
+
+
 
     private void playScale() {
 
-        playNote(noteA);
-        delay(WHOLE_NOTE);
-        playNote(noteBb);
-        delay(WHOLE_NOTE);
-        playNote(noteB);
-        delay(WHOLE_NOTE);
-        playNote(noteC);
-        delay(WHOLE_NOTE);
-        playNote(noteCsharp);
-        delay(WHOLE_NOTE);
-        playNote(noteD);
-        delay(WHOLE_NOTE);
-        playNote(noteDsharp);
-        delay(WHOLE_NOTE);
-        playNote(noteE);
-        delay(WHOLE_NOTE);
-        playNote(noteF);
-        delay(WHOLE_NOTE);
-        playNote(noteFsharp);
-        delay(WHOLE_NOTE);
-        playNote(noteG);
-        delay(WHOLE_NOTE);
-        playNote(noteGsharp);
+        Song scale = new Song();
+
+        scale.add(new Note(noteA, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteB, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteBb, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteC, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteCsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteD, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteDsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteE, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteF, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteFsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteG, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(noteGsharp, Note.WHOLE_NOTE / 2));
+
+        scale.add(new Note(notehighA, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighB, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighBb, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighC, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighCsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighD, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighDsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighF, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighFsharp, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighG, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighGsharp, Note.WHOLE_NOTE / 2));
+
+        playSong(scale);
+
+
     }
 
-    private void delay(int duration) {
-        try {
-            Thread.sleep(duration);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+    private void playSong(Song scale) {
+        for (Note note : scale.getNotes()) {
+            playNote(note);
+            delay(note.getDelay());
+        }
+    }
+
+        private void delay(int duration){
+            try {
+                Thread.sleep(duration);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+        private void playNote(int note,int loop){
+            soundPool.play(note, DEFAULT_VOLUME, DEFAULT_VOLUME, DEFAULT_PRIORITY, loop, DEFAULT_RATE);
+
+        }
+
+        private void playNote (int note){
+            playNote(note, 0);
+
+        }
+
+        private void playNote (Note note){
+          playNote(note.getNoteid(), 0);
+        }
+
+        private class KeyboardNoteListener implements View.OnClickListener
+        {
+            @Override
+            public void onClick(View view){
+                int id = view.getId();
+                int note = noteMap.get(id);
+                playNote(note);
+            }
         }
 
     }
 
 
-    private void playNote(int note, int loop) {
-        soundPool.play(note, DEFAULT_VOLUME, DEFAULT_VOLUME, DEFAULT_PRIORITY, loop, DEFAULT_RATE);
-
-    }
-
-    private void playNote(int note){
-        soundPool.play(note, DEFAULT_VOLUME, DEFAULT_VOLUME, DEFAULT_PRIORITY, 0, DEFAULT_RATE);
-
-    }
-}
