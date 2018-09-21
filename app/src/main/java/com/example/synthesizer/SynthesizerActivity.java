@@ -68,6 +68,9 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
     private int notehighG;
     private int notehighGsharp;
 
+    private int notehighhighA;
+    private int notehighhighB;
+
     private Button buttonhighA;
     private Button buttonhighBB;
     private Button buttonhighB;
@@ -159,6 +162,8 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
         notehighFsharp = soundPool.load(this, R.raw.scalehighfs, 1);
         notehighG = soundPool.load(this, R.raw.scalehighg, 1);
         notehighGsharp = soundPool.load(this, R.raw.scalehighgs, 1);
+        notehighhighA = soundPool.load(this, R.raw.scalehighhigha, 1);
+        notehighhighB = soundPool.load(this, R.raw.scalehighhighb, 1);
     }
 
     private void setListeners() {
@@ -270,11 +275,36 @@ public class SynthesizerActivity extends AppCompatActivity implements View.OnCli
     private void playNewSong() {
         Song scale = new Song();
 
-        scale.add(new Note(noteE, Note.WHOLE_NOTE / 32));
-        scale.add(new Note(noteFsharp, Note.WHOLE_NOTE / 32));
-        scale.add(new Note(noteG, Note.WHOLE_NOTE / 32));
-        scale.add(new Note(noteB, Note.WHOLE_NOTE / 32));
-        scale.add(new Note(noteE, Note.WHOLE_NOTE / 32));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighFsharp, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighG, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighhighB, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighFsharp, Note.WHOLE_NOTE / 16));
+        scale.add(new Note(notehighG, Note.WHOLE_NOTE/2 ));
+        scale.add(new Note(notehighhighB, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighFsharp, Note.WHOLE_NOTE / 16));
+        scale.add(new Note(notehighG, Note.WHOLE_NOTE/2 ));
+        scale.add(new Note(notehighhighB, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighE, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighhighB, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighhighA, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighG, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighhighA, Note.WHOLE_NOTE / 4));
+        scale.add(new Note(notehighG, Note.WHOLE_NOTE / 16));
+        scale.add(new Note(notehighhighA, Note.WHOLE_NOTE / 2));
+        scale.add(new Note(notehighG, Note.WHOLE_NOTE ));
+
+
+
+
+
+
+
+
+
 
 
 

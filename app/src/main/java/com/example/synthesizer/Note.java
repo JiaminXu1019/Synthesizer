@@ -7,7 +7,7 @@ public class Note {
 
     public Note(int noteid, int delay) {
         this.noteid = noteid;
-        this.delay = WHOLE_NOTE;
+        this.delay = delay;
     }
 
     public int getNoteid() {
